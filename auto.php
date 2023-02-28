@@ -14,17 +14,17 @@ require_once(PAY_ROOT."inc/jeepay.submit.php");
 
 //开始配置
 $jeepay_submit['currency']='cny';           //货币代码，不可少
-$jeepay_submit['channelExtra']=json_encode(array('payDataType'=>'codeImgUrl'));//渠道参数设置成：二维码地址
+//$jeepay_submit['channelExtra']=json_encode(array('payDataType'=>'codeImgUrl'));//渠道参数设置成：二维码图片地址
 $jeepay_submit['mchOrderNo']=TRADE_NO;//本地系统订单号
 $channel['apptype']=explode(',',$channel['apptype']);
 
-if($order['type']==1 and in_array('4',$channel['apptype'])){
+if($order['type']==1 and in_array('104',$channel['apptype'])){
     $jeepay_submit['wayCode']='ALI_QR';
     $submit_pay_type='alipay';
-}elseif($order['type']==2 and in_array('3',$channel['apptype'])){
+}elseif($order['type']==2 and in_array('103',$channel['apptype'])){
     $jeepay_submit['wayCode']='WX_NATIVE';
     $submit_pay_type='wx';
-}elseif(in_array('5',$channel['apptype'])){
+}elseif(in_array('105',$channel['apptype'])){
     $jeepay_submit['wayCode']='QR_CASHIER';
     $submit_pay_type='jpay';
 }else{
@@ -46,4 +46,4 @@ if($url['code']!=1)sysmsg($url['msg']);
 
 $code_url=$url['url'];
 //暂时页面文件就这样了，等后续有时间在该
-echo "<script>window.location.href='/pay/jeepay/qrcode/{$code_url}/?d=1';</script>";
+echo "<script>window.location.href='$code_url';</script>";
